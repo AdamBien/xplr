@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
  *
  * @author airhacks.com
  */
-public class JarAnalyzer {
+public interface JarAnalyzer {
 
-    public Manifest getManifest(Path jar) {
+    public static Manifest getManifest(Path jar) {
         try (FileInputStream fileInputStream = new FileInputStream(jar.toFile())) {
             try (JarInputStream inputStream = new JarInputStream(fileInputStream)) {
                 return inputStream.getManifest();
@@ -28,7 +28,7 @@ public class JarAnalyzer {
         }
     }
 
-    public boolean containsFileName(Path jar, String className) throws IOException {
+    public static boolean containsFileName(Path jar, String className) throws IOException {
         try (FileInputStream fileInputStream = new FileInputStream(jar.toFile())) {
             try (JarInputStream inputStream = new JarInputStream(fileInputStream)) {
                 JarEntry entry;
@@ -42,9 +42,9 @@ public class JarAnalyzer {
         return false;
     }
 
-    public POM getMavenPOM(Path jar) {
+    public static POM getMavenPOM(Path jar) {
         try (JarFile file = new JarFile(jar.toFile())) {
-            POM pom = file.stream().peek(this::log).
+            POM pom = file.stream().peek(JarAnalyzer::log).
                     filter(e -> e.getName().endsWith("pom.xml")).
                     map((JarEntry e) -> {
                         try {
@@ -53,7 +53,7 @@ public class JarAnalyzer {
                             throw new IllegalStateException(ex);
                         }
                     }).
-                    map(this::read).
+                    map(JarAnalyzer::read).
                     findFirst().
                     map(POM::new).
                     orElse(null);
@@ -66,16 +66,16 @@ public class JarAnalyzer {
         return null;
     }
 
-    public JarFileInfo analyze(Path jar) {
+    public static JarFileInfo analyze(Path jar) {
         return new JarFileInfo(jar.toString(), getManifest(jar), getMavenPOM(jar));
 
     }
 
-    void log(JarEntry entry) {
+    static void log(JarEntry entry) {
         System.out.println(entry);
     }
 
-    String read(InputStream stream) {
+    static String read(InputStream stream) {
         try (BufferedReader buffer = new BufferedReader(new InputStreamReader(stream))) {
             return buffer.lines().collect(Collectors.joining("\n"));
         } catch (IOException ex) {
