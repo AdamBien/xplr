@@ -69,7 +69,7 @@ public interface JarAnalyzer {
     }
 
     public static JarFileInfo analyze(Path jar) {
-        return new JarFileInfo(jar.toString(), getManifest(jar), getMavenPOM(jar));
+        return new JarFileInfo(jar, getManifest(jar), getMavenPOM(jar));
 
     }
 

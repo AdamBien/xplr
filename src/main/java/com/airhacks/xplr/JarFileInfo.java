@@ -1,5 +1,6 @@
 package com.airhacks.xplr;
 
+import java.nio.file.Path;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
@@ -11,10 +12,10 @@ import java.util.stream.Collectors;
 public class JarFileInfo {
 
     private final Manifest manifest;
-    private final String fileName;
+    private final Path fileName;
     private final POM pom;
 
-    public JarFileInfo(String fileName, Manifest manifest, POM pom) {
+    public JarFileInfo(Path fileName, Manifest manifest, POM pom) {
         this.fileName = fileName;
         this.manifest = manifest;
         this.pom = pom;
@@ -34,7 +35,11 @@ public class JarFileInfo {
         return entries + "\n" + main;
     }
 
-    public String getFileName() {
+    public Path getFolderName() {
+        return this.fileName.getParent();
+    }
+
+    public Path getFileName() {
         return fileName;
     }
 
@@ -45,7 +50,7 @@ public class JarFileInfo {
     @Override
     public String toString() {
         String msg = "# ";
-        msg += getFileName() + "\n";
+        msg += "Jar: " + getFileName() + "\n";
         msg += "## Manifest: " + "\n";
         msg += getManifest() + "\n";
         if (pom != null) {
