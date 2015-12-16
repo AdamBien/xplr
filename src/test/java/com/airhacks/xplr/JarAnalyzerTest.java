@@ -19,15 +19,14 @@ public class JarAnalyzerTest {
 
     @Before
     public void init() {
-        this.cut = new JarAnalyzer();
         this.pathToJar = Paths.get("src/test/jars/afterburner.fx-1.6.2.jar");
     }
 
     @Test
     public void analyze() throws IOException {
-        Manifest manifest = this.cut.getManifest(pathToJar);
+        Manifest manifest = JarAnalyzer.getManifest(pathToJar);
         assertNotNull(manifest);
-        POM mavenPOM = this.cut.getMavenPOM(pathToJar);
+        POM mavenPOM = JarAnalyzer.getMavenPOM(pathToJar);
         assertNotNull(mavenPOM);
         System.out.println("mavenPOM = " + mavenPOM);
 

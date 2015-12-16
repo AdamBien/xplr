@@ -28,7 +28,7 @@ public interface JarAnalyzer {
         }
     }
 
-    public static boolean containsFileName(Path jar, String className) throws IOException {
+    public static boolean containsFileName(Path jar, String className) {
         try (FileInputStream fileInputStream = new FileInputStream(jar.toFile())) {
             try (JarInputStream inputStream = new JarInputStream(fileInputStream)) {
                 JarEntry entry;
@@ -38,6 +38,8 @@ public interface JarAnalyzer {
                     }
                 }
             }
+        } catch (IOException ex) {
+            throw new IllegalStateException(ex);
         }
         return false;
     }
