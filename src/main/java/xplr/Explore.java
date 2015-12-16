@@ -15,8 +15,8 @@ import java.util.stream.Stream;
 public class Explore {
 
     public static void main(String[] args) {
-        String start = args.length == 0 ? "." : args[0];
-        String className = args.length == 1 ? null : args[1];
+        String start = args.length <= 1 ? "." : args[0];
+        String className = args.length <= 2 ? null : args[1];
         Path root = Paths.get(start);
         FileWalker fileWalker = new FileWalker();
         List<Path> jars = fileWalker.findJars(root);
