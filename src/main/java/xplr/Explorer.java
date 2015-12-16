@@ -14,13 +14,13 @@ import java.util.stream.Stream;
  *
  * @author airhacks.com
  */
-public class Explore {
+public class Explorer {
 
     public static void main(String[] args) {
-        String start = args.length >= 1 ? args[0] : ".";
+        String rootFolder = args.length >= 1 ? args[0] : ".";
         String className = args.length >= 2 ? args[1] : null;
-        System.out.println("xplr.Explorer " + start + " " + className);
-        Path root = Paths.get(start);
+        System.out.println("xplr.Explorer " + rootFolder + " " + className);
+        Path root = Paths.get(rootFolder);
         List<Path> jars = FileWalker.findJars(root);
         Stream<Path> stream = filter(className, jars.stream());
         Map<Path, List<JarFileInfo>> byPath = stream.map(JarAnalyzer::analyze).
