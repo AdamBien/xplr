@@ -21,8 +21,7 @@ public class Explore {
         String className = args.length >= 2 ? args[1] : null;
         System.out.println("xplr.Explorer " + start + " " + className);
         Path root = Paths.get(start);
-        FileWalker fileWalker = new FileWalker();
-        List<Path> jars = fileWalker.findJars(root);
+        List<Path> jars = FileWalker.findJars(root);
         Stream<Path> stream = filter(className, jars.stream());
         Map<Path, List<JarFileInfo>> byPath = stream.map(JarAnalyzer::analyze).
                 collect(Collectors.groupingBy(JarFileInfo::getFolderName));

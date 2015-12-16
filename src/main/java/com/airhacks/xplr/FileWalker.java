@@ -13,9 +13,9 @@ import java.util.List;
  *
  * @author airhacks.com
  */
-public class FileWalker {
+public interface FileWalker {
 
-    public List<Path> findJars(Path root) {
+    public static List<Path> findJars(Path root) {
         List<Path> jars = new ArrayList<>();
         SimpleFileVisitor visitor = new SimpleFileVisitor<Path>() {
             @Override

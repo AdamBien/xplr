@@ -20,14 +20,12 @@ public class FileWalkerTest {
     @Before
     public void init() {
         this.pathToJar = Paths.get("src/test/");
-        this.cut = new FileWalker();
-
     }
 
     @Test
     public void findJars() {
         Path expected = Paths.get("src/test/jars/afterburner.fx-1.6.2.jar");
-        List<Path> jars = this.cut.findJars(this.pathToJar);
+        List<Path> jars = FileWalker.findJars(this.pathToJar);
         assertThat(jars.size(), is(1));
         assertThat(jars.get(0), is(expected));
     }
