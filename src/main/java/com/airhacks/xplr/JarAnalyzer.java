@@ -33,7 +33,7 @@ public interface JarAnalyzer {
             try (JarInputStream inputStream = new JarInputStream(fileInputStream)) {
                 JarEntry entry;
                 while ((entry = inputStream.getNextJarEntry()) != null) {
-                    if (entry.getName().equals(className)) {
+                    if (entry.getName().contains(className)) {
                         return true;
                     }
                 }
