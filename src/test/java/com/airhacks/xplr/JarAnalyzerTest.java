@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.jar.Manifest;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,7 +31,13 @@ public class JarAnalyzerTest {
         POM mavenPOM = JarAnalyzer.getMavenPOM(pathToJar);
         assertNotNull(mavenPOM);
         System.out.println("mavenPOM = " + mavenPOM);
+    }
 
+    @Test
+    public void getPackage() {
+        String expected = "com.airhacks.afterburner.configuration";
+        String actual = JarAnalyzer.getPackage(this.pathToJar);
+        assertThat(actual, is(expected));
     }
 
 }

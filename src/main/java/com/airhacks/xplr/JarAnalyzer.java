@@ -68,8 +68,27 @@ public interface JarAnalyzer {
         return null;
     }
 
+    public static String getPackage(Path jar) {
+        try (JarFile file = new JarFile(jar.toFile())) {
+            return file.stream().
+                    peek(JarAnalyzer::log).
+                    map(e -> e.getName()).
+                    filter(n -> n.endsWith(".class")).
+                    map(n -> n.substring(0, n.lastIndexOf(".class"))).
+                    map(n -> n.substring(0, n.lastIndexOf("/"))).
+                    map(n -> n.replace("/", ".")).
+                    sorted((second, first) -> new Integer(first.length()).
+                    compareTo(second.length())).
+                    findFirst().
+                    orElse(null);
+
+        } catch (IOException ex) {
+            throw new IllegalStateException(ex);
+        }
+    }
+
     public static JarFileInfo analyze(Path jar) {
-        return new JarFileInfo(jar, getManifest(jar), getMavenPOM(jar));
+        return new JarFileInfo(jar, getManifest(jar), getMavenPOM(jar), getPackage(jar));
 
     }
 

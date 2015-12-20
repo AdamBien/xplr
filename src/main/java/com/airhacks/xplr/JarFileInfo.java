@@ -14,11 +14,13 @@ public class JarFileInfo {
     private final Manifest manifest;
     private final Path fileName;
     private final POM pom;
+    private final String longestPackagePath;
 
-    public JarFileInfo(Path fileName, Manifest manifest, POM pom) {
+    public JarFileInfo(Path fileName, Manifest manifest, POM pom, String longestPackagePath) {
         this.fileName = fileName;
         this.manifest = manifest;
         this.pom = pom;
+        this.longestPackagePath = longestPackagePath;
     }
 
     public String getManifest() {
@@ -47,11 +49,16 @@ public class JarFileInfo {
         return pom;
     }
 
+    public String getLongestPackagePath() {
+        return longestPackagePath;
+    }
+
     @Override
     public String toString() {
         String msg = "# ";
         msg += "Jar: " + getFileName() + "\n";
         msg += "## Manifest: " + "\n";
+        msg += "## Package: " + getLongestPackagePath() + "\n";
         msg += getManifest() + "\n";
         if (pom != null) {
             msg += "\n## POM: " + "\n";
