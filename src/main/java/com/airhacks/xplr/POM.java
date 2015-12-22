@@ -44,6 +44,12 @@ public final class POM {
                 NodeList childNodes = project.getChildNodes();
                 for (int i = 0; i < childNodes.getLength(); i++) {
                     Node item = childNodes.item(i);
+                    if ("parent".equalsIgnoreCase(item.getNodeName())) {
+                        this.groupId = findSubNode("groupId", item);
+                        this.artifactId = findSubNode("artifactId", item);
+                        this.packaging = findSubNode("packaging", item);
+                        this.version = findSubNode("version", item);
+                    }
                     if ("groupId".equals(item.getNodeName())) {
                         this.groupId = item.getTextContent();
                     }
@@ -61,6 +67,17 @@ public final class POM {
                 throw new IllegalStateException(ex);
             }
         }
+    }
+
+    String findSubNode(String nodeName, Node parent) {
+        NodeList childNodes = parent.getChildNodes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            Node item = childNodes.item(i);
+            if (nodeName.equals(item.getNodeName())) {
+                return item.getTextContent();
+            }
+        }
+        return null;
     }
 
     public String getGroupId() {

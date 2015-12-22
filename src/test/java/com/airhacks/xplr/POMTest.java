@@ -20,7 +20,7 @@ public class POMTest {
         assertThat(pom.getArtifactId(), is("afterburner.fx"));
         assertThat(pom.getGroupId(), is("com.airhacks"));
         assertThat(pom.getPackaging(), is("jar"));
-        assertThat(pom.getVersion(), is("1.6.2"));
+        assertThat(pom.getVersion(), is("9"));
     }
 
 }
