@@ -27,10 +27,8 @@ public class Explorer {
         String report = byPath.entrySet().
                 stream().
                 map(e -> toString(e.getKey(), e.getValue())).
-                collect(Collectors.joining("\n---\n", "\n", "\n----\n"));
-        System.out.println("-------------");
+                collect(Collectors.joining("\n"));
         System.out.println(report);
-        System.out.println("-------------");
     }
 
     static Stream<Path> filter(String className, Stream<Path> stream) {
