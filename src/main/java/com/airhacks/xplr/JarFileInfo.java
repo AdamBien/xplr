@@ -53,6 +53,59 @@ public class JarFileInfo {
         return longestPackagePath;
     }
 
+    public String getMavenInstallCommand() {
+        return "mvn install:install-file -Dfile=" + this.fileName
+                + " -DgroupId=" + getGroupId()
+                + " -DartifactId=" + getArtifactId()
+                + " -Dversion=" + getVersion()
+                + " -Dpackaging=" + getPackaging();
+    }
+
+    String getGroupId() {
+        String groupId = this.pom.getGroupId();
+        if (groupId == null) {
+            groupId = getLongestPackagePath();
+        }
+        return groupId;
+    }
+
+    String getArtifactId() {
+        String artifactId = this.pom.getArtifactId();
+        if (artifactId == null) {
+            artifactId = getFileNameWithoutExtension();
+        }
+        return artifactId;
+    }
+
+    String extractFileNameWithoutExtension(Path path) {
+        Path file = path.getFileName();
+        String nameAsString = file.toString();
+        int indexOfDot = nameAsString.lastIndexOf(".");
+        return nameAsString.substring(0, indexOfDot);
+    }
+
+    String getFileNameWithoutExtension() {
+        return this.extractFileNameWithoutExtension(this.getFileName());
+    }
+
+    String getVersion() {
+        String version = this.pom.getVersion();
+        if (version == null) {
+            return "1.0";
+        } else {
+            return version;
+        }
+    }
+
+    String getPackaging() {
+        String packaging = this.pom.getPackaging();
+        if (packaging == null) {
+            return "jar";
+        } else {
+            return packaging;
+        }
+    }
+
     @Override
     public String toString() {
         String msg = "# ";
