@@ -63,8 +63,6 @@ public class JarFileInfo {
         if (pom != null) {
             msg += "\n## POM: " + "\n";
             msg += getPom();
-        } else {
-            msg += "-no pom information-";
         }
         return msg;
     }
