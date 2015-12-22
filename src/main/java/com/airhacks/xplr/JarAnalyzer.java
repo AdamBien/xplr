@@ -71,7 +71,6 @@ public interface JarAnalyzer {
     public static String getPackage(Path jar) {
         try (JarFile file = new JarFile(jar.toFile())) {
             return file.stream().
-                    peek(JarAnalyzer::log).
                     map(e -> e.getName()).
                     filter(n -> n.endsWith(".class")).
                     map(n -> n.substring(0, n.lastIndexOf(".class"))).
