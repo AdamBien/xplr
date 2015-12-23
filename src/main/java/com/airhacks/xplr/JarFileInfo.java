@@ -110,7 +110,7 @@ public class JarFileInfo {
         msg += getManifest() + "\n";
         if (pom != null) {
             msg += "\n## POM: " + "\n";
-            msg += getPom();
+            msg += getPom() + "\n";
         }
         msg += "## MVN install command: " + "\n";
         msg += getMavenInstallCommand();
