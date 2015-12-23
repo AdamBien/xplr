@@ -62,7 +62,7 @@ public class JarFileInfo {
     }
 
     String getGroupId() {
-        String groupId = this.pom.getGroupId();
+        String groupId = this.pom == null ? null : this.pom.getGroupId();
         if (groupId == null) {
             groupId = getLongestPackagePath();
         }
@@ -70,7 +70,7 @@ public class JarFileInfo {
     }
 
     String getArtifactId() {
-        String artifactId = this.pom.getArtifactId();
+        String artifactId = this.pom == null ? null : this.pom.getArtifactId();
         if (artifactId == null) {
             artifactId = getFileNameWithoutExtension();
         }
@@ -89,7 +89,7 @@ public class JarFileInfo {
     }
 
     String getVersion() {
-        String version = this.pom.getVersion();
+        String version = this.pom == null ? null : this.pom.getVersion();
         if (version == null) {
             return "1.0";
         } else {
@@ -98,7 +98,7 @@ public class JarFileInfo {
     }
 
     String getPackaging() {
-        String packaging = this.pom.getPackaging();
+        String packaging = this.pom == null ? null : this.pom.getPackaging();
         if (packaging == null) {
             return "jar";
         } else {
@@ -117,6 +117,8 @@ public class JarFileInfo {
             msg += "\n## POM: " + "\n";
             msg += getPom();
         }
+        msg += "## MVN install command: " + "\n";
+        msg += getMavenInstallCommand();
         return msg;
     }
 
