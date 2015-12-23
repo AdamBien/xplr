@@ -15,6 +15,7 @@ public class JarFileInfo {
     private final Path fileName;
     private final POM pom;
     private final String longestPackagePath;
+    final static int MAX_LENGTH = 128;
 
     public JarFileInfo(Path fileName, Manifest manifest, POM pom, String longestPackagePath) {
         this.fileName = fileName;
@@ -24,17 +25,11 @@ public class JarFileInfo {
     }
 
     public String getManifest() {
-        String entries = this.manifest.
-                getEntries().
-                entrySet().
-                stream().
-                map(e -> e.getKey() + ":" + e.getValue()).
-                collect(Collectors.joining("/n"));
         Attributes mainAttributes = this.manifest.getMainAttributes();
         String main = mainAttributes.entrySet().stream().
-                map(e -> e.getKey() + ":" + e.getValue()).
+                map(e -> e.getKey() + ":" + limit(e.getValue())).
                 collect(Collectors.joining("\n"));
-        return entries + "\n" + main;
+        return main;
     }
 
     public Path getFolderName() {
@@ -120,6 +115,15 @@ public class JarFileInfo {
         msg += "## MVN install command: " + "\n";
         msg += getMavenInstallCommand();
         return msg;
+    }
+
+    static String limit(Object value) {
+        String stringified = value.toString();
+        int length = stringified.length();
+        if (length > MAX_LENGTH) {
+            return stringified.substring(0, MAX_LENGTH) + "...";
+        }
+        return stringified;
     }
 
 }
