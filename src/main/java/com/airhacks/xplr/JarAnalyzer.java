@@ -46,7 +46,7 @@ public interface JarAnalyzer {
 
     public static POM getMavenPOM(Path jar) {
         try (JarFile file = new JarFile(jar.toFile())) {
-            POM pom = file.stream().peek(JarAnalyzer::log).
+            POM pom = file.stream().
                     filter(e -> e.getName().endsWith("pom.xml")).
                     map((JarEntry e) -> {
                         try {
