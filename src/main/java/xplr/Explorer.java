@@ -43,7 +43,7 @@ public class Explorer {
         retVal += "Directory: " + path.toString() + "\n";
         retVal += "#####################################\n";
         retVal += jars.stream().map(j -> j.toString()).
-                collect(Collectors.joining("\n---\n", "\n", "\n----\n"));
+                collect(Collectors.joining("\n---\n", "\n", "\n---\n"));
         return retVal;
     }
 }
