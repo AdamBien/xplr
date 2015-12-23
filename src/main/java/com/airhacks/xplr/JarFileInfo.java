@@ -112,7 +112,7 @@ public class JarFileInfo {
             msg += "\n## POM: " + "\n";
             msg += getPom() + "\n";
         } else {
-            POM suggestion = new POM(this.getGroupId(), this.getArtifactId(), this.getVersion(), this.getPackaging());
+            POM suggestion = new POM(this.getGroupId(), this.getArtifactId(), this.getVersion());
             msg += "\n## Suggestion: " + "\n";
             msg += suggestion + "\n";
         }

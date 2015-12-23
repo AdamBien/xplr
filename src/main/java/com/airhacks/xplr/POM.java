@@ -29,11 +29,10 @@ public final class POM {
         parse();
     }
 
-    public POM(String groupId, String artifactId, String version, String packaging) {
+    public POM(String groupId, String artifactId, String version) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
-        this.packaging = packaging;
     }
 
     void parse() {
