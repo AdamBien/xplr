@@ -111,6 +111,10 @@ public class JarFileInfo {
         if (pom != null) {
             msg += "\n## POM: " + "\n";
             msg += getPom() + "\n";
+        } else {
+            POM suggestion = new POM(this.getGroupId(), this.getArtifactId(), this.getVersion(), this.getPackaging());
+            msg += "\n## Suggestion: " + "\n";
+            msg += suggestion + "\n";
         }
         msg += "## MVN install command: " + "\n";
         msg += getMavenInstallCommand();
