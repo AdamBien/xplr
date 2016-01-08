@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.jar.Manifest;
+import java.util.stream.Stream;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,6 +40,13 @@ public class JarAnalyzerTest {
         String expected = "com.airhacks.afterburner.configuration";
         String actual = JarAnalyzer.getPackage(this.pathToJar);
         assertThat(actual, is(expected));
+    }
+
+    @Test
+    public void getPackageForClassWithoutPackage() {
+        Stream<String> packageStream = Stream.of("Duke.class");
+        String actual = JarAnalyzer.getPackage(packageStream);
+        assertNull(actual);
     }
 
 }

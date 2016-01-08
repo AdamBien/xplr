@@ -11,6 +11,7 @@ import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -70,20 +71,23 @@ public interface JarAnalyzer {
 
     public static String getPackage(Path jar) {
         try (JarFile file = new JarFile(jar.toFile())) {
-            return file.stream().
-                    map(e -> e.getName()).
-                    filter(n -> n.endsWith(".class")).
-                    map(n -> n.substring(0, n.lastIndexOf(".class"))).
-                    map(n -> n.substring(0, n.lastIndexOf("/"))).
-                    map(n -> n.replace("/", ".")).
-                    sorted((second, first) -> new Integer(first.length()).
-                    compareTo(second.length())).
-                    findFirst().
-                    orElse(null);
-
+            return getPackage(file.stream().
+                    map(e -> e.getName()));
         } catch (IOException ex) {
             throw new IllegalStateException(ex);
         }
+    }
+
+    static String getPackage(Stream<String> packages) {
+        return packages.filter(n -> n.endsWith(".class")).
+                filter(n -> n.lastIndexOf("/") != -1).
+                map(n -> n.substring(0, n.lastIndexOf(".class"))).
+                map(n -> n.substring(0, n.lastIndexOf("/"))).
+                map(n -> n.replace("/", ".")).
+                sorted((second, first) -> new Integer(first.length()).
+                compareTo(second.length())).
+                findFirst().
+                orElse(null);
     }
 
     public static JarFileInfo analyze(Path jar) {
