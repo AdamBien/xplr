@@ -3,7 +3,7 @@
 Java 8 Command Line Jar Explorer
 
 xplr traverses recursively JARs, extracts the versioning information from ```manifest.mf``` and ```pom.xml``` and generates
-```mvn install:install-file```
+```mvn install:install-file```. xplr is helpful for extracting dependency information for Maven dependencies from "legacy" JARs.
 
 ```
 #####################################
@@ -40,5 +40,6 @@ Java 8
 ```java -jar xplr.jar [FOLDER] [CLASS NAME]```
 
 FOLDER (optional): specifies the folder, default is the current working directory
+
 CLASS NAME (optional): searches for jars containing the specified class name. The search is case insensitive. 
 
