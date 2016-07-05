@@ -39,7 +39,7 @@ Java 8
 
 ```java -jar xplr.jar [FOLDER] [CLASS NAME]```
 
-FOLDER (optional): specifies the folder, default is the current working directory
+FOLDER (optional): specifies the folder. Defaults to the current working directory
 
 CLASS NAME (optional): searches for jars containing the specified class name. The search is case insensitive. 
 
