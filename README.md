@@ -1,8 +1,8 @@
 # xplr
 
-Java 8 Command Line Jar Explorer
+Jar Meta-Information Explorer 
 
-xplr is a self-containes Java 8 command line utility, which traverses recursively JARs, extracts the versioning information from ```manifest.mf``` and ```pom.xml``` with prepared ```mvn install:install-file``` statements. 
+xplr is a self-contained Java 8 command line utility, which traverses recursively JARs, extracts the versioning information from ```manifest.mf``` and ```pom.xml``` with prepared ```mvn install:install-file``` statements. 
 
 xplr is helpful for extracting dependency information for Maven dependencies from "legacy" JARs.
 
