@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -18,9 +19,17 @@ public interface FileWalker {
 
     public static List<Path> findJars(Path root) {
         if (isJar(root)) {
+            Path fileWithAbsolutePath = asAbsolutePath(root);
             return Arrays.asList(root);
         }
         return scanFolder(root);
+    }
+
+    static Path asAbsolutePath(Path file) {
+        if (file.getNameCount() == 1) {
+            return Paths.get(".").resolve(file);
+        }
+        return file;
     }
 
     static boolean isJar(Path file) {

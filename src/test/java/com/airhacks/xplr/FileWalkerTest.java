@@ -30,6 +30,22 @@ public class FileWalkerTest {
         assertFalse(FileWalker.isJar(Paths.get("hugo/")));
     }
 
+    @Test
+    public void isAbsolutePathWithPlainFile() {
+        Path file = Paths.get("hugo.jar");
+        Path expected = Paths.get("./hugo.jar");
+        Path actual = FileWalker.asAbsolutePath(file);
+        assertThat(actual.toString(), is(expected.toString()));
+    }
+
+    @Test
+    public void isAbsolutePathWithFileWithPath() {
+        Path file = Paths.get("/temp/hugo.jar");
+        Path expected = Paths.get("/temp/hugo.jar");
+        Path actual = FileWalker.asAbsolutePath(file);
+        assertThat(actual.toString(), is(expected.toString()));
+    }
+
 
     @Test
     public void findJars() {
