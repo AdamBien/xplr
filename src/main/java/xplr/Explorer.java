@@ -17,9 +17,9 @@ import java.util.stream.Stream;
 public class Explorer {
 
     public static void main(String[] args) {
-        String rootFolder = args.length >= 1 ? args[0] : ".";
+        String rootFolderOrFile = args.length >= 1 ? args[0] : ".";
         String className = args.length >= 2 ? args[1] : null;
-        Path root = Paths.get(rootFolder);
+        Path root = Paths.get(rootFolderOrFile);
         List<Path> jars = FileWalker.findJars(root);
         Stream<Path> stream = filter(className, jars.stream());
         Map<Path, List<JarFileInfo>> byPath = stream.map(JarAnalyzer::analyze).

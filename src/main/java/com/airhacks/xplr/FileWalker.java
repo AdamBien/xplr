@@ -16,6 +16,10 @@ import java.util.List;
 public interface FileWalker {
 
     public static List<Path> findJars(Path root) {
+        return scanFolder(root);
+    }
+
+    public static List<Path> scanFolder(Path root) throws IllegalStateException {
         List<Path> jars = new ArrayList<>();
         SimpleFileVisitor visitor = new SimpleFileVisitor<Path>() {
             @Override
