@@ -4,7 +4,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +23,13 @@ public class FileWalkerTest {
     public void init() {
         this.pathToJar = Paths.get("src/test/");
     }
+
+    @Test
+    public void isJar() {
+        assertTrue(FileWalker.isJar(Paths.get("hugo.jar")));
+        assertFalse(FileWalker.isJar(Paths.get("hugo/")));
+    }
+
 
     @Test
     public void findJars() {

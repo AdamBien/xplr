@@ -19,6 +19,10 @@ public interface FileWalker {
         return scanFolder(root);
     }
 
+    static boolean isJar(Path file) {
+        return file.getFileName().toString().endsWith(".jar");
+    }
+
     public static List<Path> scanFolder(Path root) throws IllegalStateException {
         List<Path> jars = new ArrayList<>();
         SimpleFileVisitor visitor = new SimpleFileVisitor<Path>() {
