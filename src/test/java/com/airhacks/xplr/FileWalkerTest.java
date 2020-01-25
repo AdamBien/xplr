@@ -31,6 +31,14 @@ public class FileWalkerTest {
     }
 
     @Test
+    public void isAbsolutePathWithPlainDottedFile() {
+        Path file = Paths.get("org.eclipse.persistence.jpa.jar");
+        Path expected = Paths.get("./org.eclipse.persistence.jpa.jar");
+        Path actual = FileWalker.asAbsolutePath(file);
+        assertThat(actual.toString(), is(expected.toString()));
+    }
+
+    @Test
     public void isAbsolutePathWithPlainFile() {
         Path file = Paths.get("hugo.jar");
         Path expected = Paths.get("./hugo.jar");

@@ -1,5 +1,6 @@
 package com.airhacks.xplr;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -20,13 +21,14 @@ public interface FileWalker {
     public static List<Path> findJars(Path root) {
         if (isJar(root)) {
             Path fileWithAbsolutePath = asAbsolutePath(root);
-            return Arrays.asList(root);
+            return Arrays.asList(fileWithAbsolutePath);
         }
         return scanFolder(root);
     }
 
     static Path asAbsolutePath(Path file) {
-        if (file.getNameCount() == 1) {
+        String asString = file.toString();
+        if (!asString.startsWith(".") && !asString.startsWith(File.pathSeparator)) {
             return Paths.get(".").resolve(file);
         }
         return file;
