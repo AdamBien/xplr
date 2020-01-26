@@ -40,9 +40,12 @@ Java 8
 
 ## Usage
 
-```java -jar xplr.jar [FOLDER] [CLASS NAME]```
+```java -jar xplr.jar [FOLDER] [CLASS NAME]``` or
+```java -jar xplr.jar [JAR_FILE] [CLASS NAME]```
 
 FOLDER (optional): specifies the folder. Defaults to the current working directory
+
+JAR_FILE: a jar in the current directory or a fully qualified path to the jar file.
 
 CLASS NAME (optional): searches for jars containing the specified class name. The search is case insensitive. 
 
